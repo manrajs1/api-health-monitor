@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from url_request_check import request_check
 
 app = FastAPI()
 
@@ -22,4 +23,5 @@ def status():
 @app.post("/monitors")
 def add_monitor(monitor: Monitor):
     url = monitor.url
-    return url
+    url_check = request_check(url)
+    return url_check

@@ -1,6 +1,7 @@
 import httpx
 import time
 
+
 def request_check(url):
     try:
         start = time.perf_counter()
@@ -19,8 +20,3 @@ def request_check(url):
         time_taken = round(time_taken, 2)
         return {"status code": None, "response time": time_taken, "Up": False, "Error":"Request Error"}
 
-
-test1 = request_check("https://manrajsingh.dev")
-print(test1)
-test2 = request_check("https://www.google.com/404")
-print(test2)
