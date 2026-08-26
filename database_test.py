@@ -14,22 +14,17 @@ monitor_id = cur.lastrowid
 # Saving
 connection.commit()
 
-urlcheck = request_check(url)
-
-
-
-
-
 #Printing all monitors created so far
 res = cur.execute("SELECT id, url FROM monitors")
 print(res.fetchall())
 
-status_code = 200
-response_time = 0.42
+check_result = request_check(url)
+status_code = check_result["status code"]
+response_time = check_result["response time"]
 time = datetime.datetime.now(datetime.timezone.utc )
 timestamp = str(time)
-up = 1
-error = None
+up = check_result["Up"]
+error = check_result["Error"]
 
 # Inserting into checks table data with linked monitor_id
 cur.execute("""
@@ -39,7 +34,7 @@ INSERT INTO checks(monitor_id, status_code, response_time,
     (monitor_id, status_code, response_time, timestamp, up, error)
 )
 connection.commit()
-res = cur.execute("SELECT * FROM checks")
+res = cur.execute("SELECT * FROM checks WHERE monitor_id = ? ", (monitor_id,))
 print(res.fetchall())
 
 
