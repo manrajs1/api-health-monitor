@@ -8,6 +8,19 @@ cur = connection.cursor()
 # Creating a new table with id as primary key and url with required text value
 cur.execute("CREATE TABLE IF NOT EXISTS monitors(id INTEGER PRIMARY KEY, url TEXT NOT NULL)")
 
+cur.execute("""
+    CREATE TABLE IF NOT EXISTS checks
+    (
+    id INTEGER PRIMARY KEY, 
+    monitor_id INTEGER NOT NULL REFERENCES monitors(id), 
+    status_code INTEGER, 
+    response_time REAL NOT NULL, 
+    timestamp TEXT NOT NULL, 
+    up INTEGER NOT NULL, 
+    error TEXT
+    )
+    """)
+
 
 # Closing the connection
 connection.close()
