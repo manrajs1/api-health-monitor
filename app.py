@@ -21,7 +21,7 @@ def status():
     return {"message" : "Status is good"}
 
 @app.post("/monitors")
-def add_monitor(monitor: Monitor):
+def create_monitor(monitor: Monitor):
     url = monitor.url
     url_check = request_check(url)
     return url_check
