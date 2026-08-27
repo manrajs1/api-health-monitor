@@ -12,7 +12,7 @@ cur.execute("""
     CREATE TABLE IF NOT EXISTS checks
     (
     id INTEGER PRIMARY KEY, 
-    monitor_id INTEGER NOT NULL REFERENCES monitors(id), 
+    monitor_id INTEGER NOT NULL REFERENCES monitors(id) ON DELETE CASCADE , 
     status_code INTEGER, 
     response_time REAL NOT NULL, 
     timestamp TEXT NOT NULL, 
