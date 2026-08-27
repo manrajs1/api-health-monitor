@@ -1,19 +1,13 @@
 import sqlite3
 import datetime
 from url_request_check import request_check
+from database import add_monitor, save_check, get_check_history
 
-connection = sqlite3.connect("monitor.db")
-cur = connection.cursor()
-cur.execute("PRAGMA foreign_keys = ON;")
 url = "https://example.com"
-# Adding this url into our monitors table using placeholder
-cur.execute("INSERT INTO monitors(url) VALUES (?)", (url,))
-# Assigning the id from the latest monitor added and assigning it to the checks table monitor id for foreign key
-monitor_id = cur.lastrowid
 
-# Saving
-connection.commit()
+monitor = add_monitor(url)
 
+<<<<<<< HEAD
 #Printing all monitors created so far
 res = cur.execute("SELECT id, url FROM monitors")
 print(res.fetchall())
@@ -39,3 +33,10 @@ print(res.fetchall())
 
 
 connection.close()
+=======
+result = request_check(url)
+save_check(monitor["id"], result)
+
+history = get_check_history(monitor['id'])
+print(history)
+>>>>>>> a53affe (add reusable database functions for monitors and check history)
