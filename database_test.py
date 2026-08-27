@@ -1,7 +1,7 @@
 import sqlite3
 import datetime
 from url_request_check import request_check
-from database_operation import add_monitor, save_check, get_check_history, get_monitors, delete_monitor
+from database_operations import add_monitor, save_check, get_check_history, get_monitors, delete_monitor, get_monitor
 
 url = "https://example.com"
 
@@ -15,4 +15,6 @@ print(history)
 
 
 print(get_monitors())
-delete_monitor(1)
+
+print(get_monitor(3))
+print(get_monitor(3232))

@@ -61,3 +61,11 @@ def delete_monitor(monitor_id):
     cur.execute("DELETE FROM monitors WHERE id = ?",  (monitor_id,))
     connection.commit()
     connection.close()
+
+def get_monitor(monitor_id: int):
+    connection = sqlite3.connect("monitor.db")
+    cur = connection.cursor()
+    monitor = cur.execute("SELECT id, url FROM monitors WHERE id = ?",(monitor_id,))
+    result = monitor.fetchone()
+    connection.close()
+    return result
