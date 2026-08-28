@@ -7,7 +7,6 @@ app = FastAPI()
 
 class Monitor(BaseModel):
     url : str
-    
 
 @app.get("/")
 async def root():
@@ -25,7 +24,8 @@ def list_monitors():
     return {"monitors": formatted_monitors }
 
 @app.get("/monitors/{monitor_id}/history")
-def check_history(monitor_id: int):
+def get_monitor_history(monitor_id: int):
+    # Verify the monitor exists before returning history.
     monitor_record = get_monitor(monitor_id)
     if monitor_record is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -43,21 +43,17 @@ def check_history(monitor_id: int):
         formatted_history.append(history_data)
     return {"history" : formatted_history}
 
-
 @app.get("/status")
 def status():
     return {"message" : "Status is good"}
 
-
-
 @app.delete("/monitors/{monitor_id}")
-def monitor_delete(monitor_id:int):
+def delete_monitor_route(monitor_id: int):
     monitor_record = get_monitor(monitor_id)
     if monitor_record is None:
         raise HTTPException(status_code=404, detail="Item not found")
     delete_monitor(monitor_id)
     return {"message": f"successfully deleted {monitor_id}"}
-
 
 @app.post("/monitors")
 def create_monitor(monitor: Monitor):
