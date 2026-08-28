@@ -62,9 +62,9 @@ def create_monitor(monitor: Monitor):
     result = request_check(url)
     save_check(monitor_record['id'], result)
     return {"monitor_id" : monitor_record['id'],
-            "status_code" : result['status code'],
-            "response_time" : result['response time'],
+            "status_code" : result['status_code'],
+            "response_time" : result['response_time'],
             "url" : url,
-            "up" : result['Up'],
-            "error": result["Error"]
+            "up" : result['up'],
+            "error": result['error']
             }

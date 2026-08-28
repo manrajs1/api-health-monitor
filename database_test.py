@@ -1,5 +1,3 @@
-import sqlite3
-import datetime
 from url_request_check import request_check
 from database_operations import add_monitor, save_check, get_check_history, get_monitors, delete_monitor, get_monitor
 
@@ -16,5 +14,4 @@ print(history)
 
 print(get_monitors())
 
-print(get_monitor(3))
-print(get_monitor(3232))
+print(get_monitor(monitor['id']))

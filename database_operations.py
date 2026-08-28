@@ -27,10 +27,10 @@ def save_check(monitor_id, check_result):
             up, 
             error) 
             VALUES (?,?,?,?,?,?)
-    ''',    (monitor_id, check_result["status code"],
-             check_result["response time"],
-            timestamp, check_result["Up"],
-            check_result['Error'])
+    ''',    (monitor_id, check_result["status_code"],
+             check_result["response_time"],
+            timestamp, check_result["up"],
+            check_result['error'])
     )
     connection.commit()
     connection.close()

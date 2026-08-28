@@ -21,6 +21,5 @@ cur.execute("""
     )
     """)
 
-
 # Closing the connection
 connection.close()
