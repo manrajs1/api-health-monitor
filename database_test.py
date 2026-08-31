@@ -1,4 +1,4 @@
-from url_request_check import request_check
+from url_monitoring import request_check
 from database_operations import add_monitor, save_check, get_check_history, get_monitors, delete_monitor, get_monitor
 
 url = "https://example.com"

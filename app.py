@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from url_request_check import request_check
+from url_monitoring import request_check, validate_url
 from database_operations import add_monitor, save_check, get_check_history, get_monitors, delete_monitor, get_monitor
 
 app = FastAPI()
@@ -58,6 +58,8 @@ def delete_monitor_route(monitor_id: int):
 @app.post("/monitors")
 def create_monitor(monitor: Monitor):
     url = monitor.url
+    if validate_url(url) is False:
+        raise HTTPException(status_code=400, detail="Only public HTTP and HTTPS URLs are allowed")
     monitor_record = add_monitor(url)
     result = request_check(url)
     save_check(monitor_record['id'], result)
