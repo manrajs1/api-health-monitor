@@ -17,7 +17,7 @@ def request_check(url):
         end = time.perf_counter()
         time_taken = end - start
         time_taken = round(time_taken, 2)
-        return {"status_code": None, "response_time": time_taken, "up": False, "errror":"Request Error"}
+        return {"status_code": None, "response_time": time_taken, "up": False, "error":"Request Error"}
     
     
 def validate_url(url):
