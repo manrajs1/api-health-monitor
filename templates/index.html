@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>API HEALTH MONITOR</title>
+        <link rel="stylesheet" href="/static/style.css">
+
+    </head>
+
+    <body>
+        <h1>API HEALTH MONITOR</h1>
+
+        <div class = "url-submission">
+            <form action="/monitors/create" method="post">
+                <label>Enter URL</label> <input type="text" name="url" placeholder="https://example.com" required>  
+                <button type='submit'> Submit </button>
+            </form>
+            
+            {% if error %}
+                <p> {{error}} </p>                  
+            {% endif %}
+        </div>
+
+        {%for row in monitors%}
+            <div class = "monitor-card">
+                <p> {{loop.index}}. <a href = "/monitors/{{row[0]}}/history">{{row[1]}}</a> </p>
+                    <form action="/monitors/{{row[0]}}/delete" method="post">  
+                        <button type='submit'> Delete </button>
+                    </form>
+
+            </div>
+        {% endfor %}
+
+
+    </body>
+
+
+</html>

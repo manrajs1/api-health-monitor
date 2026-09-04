@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Monitor History</title>
+        <link rel="stylesheet" href="/static/style.css">
+
+    </head>
+
+    <body>
+        <h1> Monitor History </h1>
+        <table>
+            <tr>
+                <th> Status Code </th> <th> Response Time </th> <th>Timestamp </th> <th> Up </th> <th>Error </th>
+            </tr>
+        {%for row in history%}
+        <tr> 
+            <td>{{row['status_code']}} </td> 
+            <td>{{row['response_time']}}</td>
+            <td>{{row['timestamp']}}</td>
+            <td>{{row['up']}}</td>
+            <td>{{row['error']}}</td>
+        
+        </tr>
+        {%endfor%}
+    </table>
+    </body>
+
+</html>
