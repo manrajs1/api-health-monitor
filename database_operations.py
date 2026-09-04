@@ -1,8 +1,9 @@
 import sqlite3
 import datetime
+import config
 
 def add_monitor(url):
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     # Enable foreign-key enforcement for this SQLite connection.
     cur.execute("PRAGMA foreign_keys = ON;")
@@ -13,7 +14,7 @@ def add_monitor(url):
     return {"id" : monitor_id, "url":url}
 
 def save_check(monitor_id, check_result):
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     # Store check timestamps in UTC so the backend uses one consistent timezone.
     current_time = datetime.datetime.now(datetime.timezone.utc )
@@ -36,7 +37,7 @@ def save_check(monitor_id, check_result):
     connection.close()
 
 def get_check_history(monitor_id):
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     rows = cur.execute('''
@@ -47,7 +48,7 @@ def get_check_history(monitor_id):
     return history
 
 def get_monitors():
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     monitors = cur.execute("SELECT id, url FROM monitors")
@@ -56,7 +57,7 @@ def get_monitors():
     return monitors
 
 def delete_monitor(monitor_id):
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     cur.execute("DELETE FROM monitors WHERE id = ?",  (monitor_id, ))
@@ -64,7 +65,7 @@ def delete_monitor(monitor_id):
     connection.close()
 
 def get_monitor(monitor_id: int):
-    connection = sqlite3.connect("monitor.db")
+    connection = sqlite3.connect(config.database_path)
     cur = connection.cursor()
     cur.execute("PRAGMA foreign_keys = ON;")
     monitor = cur.execute("SELECT id, url FROM monitors WHERE id = ?",(monitor_id, ))
