@@ -11,6 +11,7 @@
             <tr>
                 <th> Status Code </th> <th> Response Time </th> <th>Timestamp </th> <th> Up </th> <th>Error </th>
             </tr>
+        <!-- Displaying each saved check from the history data sent by FastAPI -->
         {%for row in history%}
         <tr> 
             <td>{{row['status_code']}} </td> 

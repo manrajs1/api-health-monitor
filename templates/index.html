@@ -9,6 +9,7 @@
         <h1>API HEALTH MONITOR</h1>
 
         <div class = "url-submission">
+            <!-- Form for adding a new monitor -->
             <form action="/monitors/create" method="post">
                 <label>Enter URL</label> <input type="text" name="url" placeholder="https://example.com" required>  
                 <button type='submit'> Submit </button>
@@ -19,18 +20,17 @@
             {% endif %}
         </div>
 
+        <!-- Displaying each saved monitor -->
         {%for row in monitors%}
             <div class = "monitor-card">
                 <p> {{loop.index}}. <a href = "/monitors/{{row[0]}}/history">{{row[1]}}</a> </p>
-                    <form action="/monitors/{{row[0]}}/delete" method="post">  
+                        <!-- Sending a POST request to delete this specific monitor -->
+                        <form action="/monitors/{{row[0]}}/delete" method="post">  
                         <button type='submit'> Delete </button>
                     </form>
-
             </div>
         {% endfor %}
 
-
     </body>
-
 
 </html>

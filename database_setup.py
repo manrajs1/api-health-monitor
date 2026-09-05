@@ -2,16 +2,20 @@ import sqlite3
 import config
 
 def setup_database():   
-    # Creating connection to the database
+    # Opening a connection to the database
     connection = sqlite3.connect(config.database_path)
-    # Creating messenger to send sql commands to the database
+    
+    # Creating a cursor to send SQL commands through the connection
     cur = connection.cursor()
     
+    # Enabling foreign key rules for this database connection
     cur.execute("PRAGMA foreign_keys = ON;")
 
-    # Creating a new table with id as primary key and url with required text value
+    # Creating monitors table if it does not already exist
     cur.execute("CREATE TABLE IF NOT EXISTS monitors(id INTEGER PRIMARY KEY, url TEXT NOT NULL)")
 
+    # monitor_id is a foreign key connected to monitors.id.
+    # If a monitor is deleted, all checks connected to that monitor are also deleted.
     cur.execute("""
         CREATE TABLE IF NOT EXISTS checks
         (
@@ -25,5 +29,8 @@ def setup_database():
         )
         """)
 
-    # Closing the connection
+    # Saving the database changes
+    connection.commit()
+    
+    # Closing the database connection
     connection.close()
